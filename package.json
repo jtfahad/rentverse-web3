@@ -48,6 +48,8 @@
   },
   "scripts": {
     "start": "concurrently \"node server/server.js\" \"react-app-rewired start\"",
+    "server": "node server/server.js",
+    "test:api": "node scripts/test-web3-api.js",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
@@ -71,6 +73,8 @@
     ]
   },
   "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-keywords": "^5.1.0",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",

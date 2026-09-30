@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowRight, FiUser, FiClock } from 'react-icons/fi';
-import { FaWallet, FaStore, FaMoneyBillWave, FaExchangeAlt, FaChartLine, FaLock, FaUserCog, FaCoins } from 'react-icons/fa';
+import { FaWallet, FaStore, FaMoneyBillWave, FaExchangeAlt, FaChartLine, FaLock, FaUserCog, FaCoins, FaCheckCircle } from 'react-icons/fa';
 import { SiEthereum } from 'react-icons/si';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { useWallet } from '../context/WalletContext';
 
 function Home() {
+  const { isConnected, connectWallet, formattedAddress } = useWallet();
   const [openSections, setOpenSections] = useState({});
 
   const featuredProperties = [
@@ -415,12 +417,21 @@ function Home() {
             >
               Browse Properties
             </Link>
-            <button
-              className="btn bg-primary-700 hover:bg-primary-800"
-            >
-              <FaWallet className="mr-2" />
-              Connect Wallet
-            </button>
+            {isConnected ? (
+              <div className="btn bg-primary-700 text-white flex items-center justify-center">
+                <FaCheckCircle className="mr-2 text-green-400" />
+                <span>Connected: {formattedAddress}</span>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => connectWallet(false)}
+                className="btn bg-primary-700 hover:bg-primary-800 flex items-center justify-center"
+              >
+                <FaWallet className="mr-2" />
+                Connect Wallet
+              </button>
+            )}
           </div>
         </div>
       </section>
